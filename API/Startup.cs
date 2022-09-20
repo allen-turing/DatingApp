@@ -1,5 +1,8 @@
 using Microsoft.OpenApi.Models;
 using API.Extensions;
+using API.Data;
+using Microsoft.Extensions.Options;
+using Microsoft.EntityFrameworkCore;
 
 namespace API
 {
@@ -11,11 +14,15 @@ namespace API
             _config = config;
         }
 
-        public IConfiguration Configuration { get; }
+        //public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DataContext>(options =>
+            {
+                options.UseSqlite(_config.GetConnectionString("DefaultConnections"));
+            });
             services.AddApplicationServices(_config);
             services.AddControllers();
             services.AddCors();
