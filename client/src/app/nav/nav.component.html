@@ -11,8 +11,18 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Messages</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()" href="#">Logout</a>
+      </li>
     </ul>
-    <form
+    <div class="dpropdown" *ngIf="loggedIn">
+      <a href="" class="dropdown-toggle text-light">Welcome User</a>
+      <div class="dropdown-menu">
+        <a class="dropdown-item">Edit Profile</a>
+        <a class="dropdown-item" (click)="logout()">Logout</a>
+      </div>
+    </div>
+    <form *ngIf="!loggedIn"
       #loginForm="ngForm"
       class="form-inline mt-2 mt-md-0"
       (ngSubmit)="login()"
@@ -21,7 +31,6 @@
       <input
         name="username"
         [(ngModel)]="model.username"
-        c
         class="form-control mr-sm-2"
         type="text"
         placeholder="Username"
