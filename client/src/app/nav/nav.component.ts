@@ -10,12 +10,9 @@ import { AccountService } from '../_services/account.service';
 })
 export class NavComponent implements OnInit {
   model: any = {};
-  currentUser$: Observable<User>;
-  constructor(private accountServices: AccountService) {}
+  constructor(public accountServices: AccountService) {}
 
-  ngOnInit(): void {
-    this.currentUser$ = this.accountServices.currentUser$;
-  }
+  ngOnInit(): void {}
 
   login() {
     this.accountServices.login(this.model).subscribe(
