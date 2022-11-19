@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../_services/account.service';
 
 @Component({
@@ -11,17 +12,24 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   model: any = {};
 
-  constructor(private accontServices: AccountService) {}
+  constructor(
+    private accontServices: AccountService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {}
 
   register() {
-    this.accontServices.register(this.model).subscribe(response => {
-      console.log({response});
-      this.cancel();
-    }, error => {
-      console.log(error);
-    });
+    this.accontServices.register(this.model).subscribe(
+      (response) => {
+        console.log({ response });
+        this.cancel();
+      },
+      (error) => {
+        console.log(error);
+        this.toastr.error(error.error);
+      }
+    );
   }
 
   cancel() {
