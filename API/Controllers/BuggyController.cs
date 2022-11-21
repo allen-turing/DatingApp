@@ -39,18 +39,10 @@ namespace API.Controllers
         [HttpGet("server-error")]
         public ActionResult<string> GetNotFound()
         {
-            try
-            {
-                var thing = _context.Users.Find(-1);
+            var thing = _context.Users.Find(-1);
 
-                var thingToReturn = thing.ToString();
-                return thingToReturn;
-            }
-            catch (Exception ex)
-            {
-
-                return StatusCode(500, "Computer Say no!");
-            }   
+            var thingToReturn = thing.ToString();
+            return thingToReturn;
         }
 
         [HttpGet("bad-request")]
